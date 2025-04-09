@@ -436,3 +436,83 @@ Keeps the database logic modular and manageable.
 Can easily be extended or swapped with another DB implementation.
 
 Enhances testability and maintainability of the system.
+
+###  <p align="center"> TASK 3 </p>
+
+
+### 🔌 Database Connection Setup
+
+The application connects to a MySQL database using utility classes inside the `util/` package.
+
+#### 🔹 DBConnection (in `util/db_connection.py`)
+
+- Establishes a connection to the MySQL database.
+ 
+- Uses `mysql-connector-python` for connectivity.
+  
+- Provides a static method `get_connection()` to reuse a single connection throughout the app.
+
+```
+from util.db_property_util import DBPropertyUtil
+import mysql.connector
+
+class DBConnUtil:
+    @staticmethod
+    def get_connection(config_path):
+        try:
+            db_config = DBPropertyUtil.get_db_config(config_path)
+            connection = mysql.connector.connect(
+                host=db_config['host'],
+                user=db_config['user'],
+                password=db_config['password'],
+                database=db_config['database']
+            )
+            return connection
+        except Exception as e:
+            print(" Error in DBConnUtil:", str(e))
+            return None
+
+```
+
+#### 🔹 PropertyUtil (in `util/property_util.py`)
+
+- Reads database connection details (hostname, port, db name, username, password) from a `.properties` file.
+  
+- Returns a formatted connection string.
+
+```
+import configparser
+import os
+
+
+class DBPropertyUtil:
+    @staticmethod
+    def get_db_config(path: str):
+        config = configparser.ConfigParser()
+        full_path = os.path.abspath(path)
+
+        print("Reading from:", full_path)  # 🔍 Debug print
+        config.read(full_path)
+
+        if 'database' not in config:
+            print("Sections found:", config.sections())  # 🔍 Debug print
+            raise Exception("Missing [database] section in properties file.")
+
+        return {
+            'host': config['database']['host'],
+            'user': config['database']['user'],
+            'password': config['database']['password'],
+            'database': config['database']['database']
+        }
+
+```
+📁 **config.properties**
+
+```
+[database]
+host = localhost
+user = root
+password = Vineeth1246@
+database = project_management
+
+```
