@@ -34,8 +34,8 @@ driven application.
 
 ###  <p align="center">Schema Design</p>
 
+  ####   <p align="center"> Employee </p>
 
-### Employee
 
 • id (Primary Key)
 
@@ -70,7 +70,8 @@ CREATE TABLE Employee (
 </p>
 
 
- #### Project
+ ####   <p align="center"> Project </p>
+
  
 • Id (Primary Key)
 
@@ -94,7 +95,8 @@ CREATE TABLE Project (
 ```
 
 
-#### Task
+ #### <p align="center"> Task </p>
+
 • task_id (Primary Key)
 
 • task_name
@@ -135,4 +137,302 @@ CREATE TABLE Task (
 
 • The Task table stores details of task and data about which project it comes under and employees assigned with that taks along with status .
 
+### Create the model/entity classes corresponding to the schema within package entity with variables declared private, constructors(default and parametrized) and getters,setters )
 
+####  Service Provider Interface/Abstract class:
+
+_Keep the interfaces and implementation classes in package dao_
+
+created a directory named as dao inside the project file 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/75e04e94-2bef-460c-9510-04ce6f3bf1c8" width="45%" />
+</p>
+
+
+####  Define IProjectRepository interface/abstract class with methods for adding/removing  products to/from the cart and placing orders. The following methods will interact with database.
+
+
+#### 1. createEmployee()
+
+parameter: Employee emp
+
+return type: boolean
+
+#### 2. createProject()
+
+parameter: Project pj
+
+return type: Boolean
+
+#### 3. createTask()
+Parameter: Project pj
+
+Return type: Boolean
+
+#### 5. assignProjectToEmployee()
+
+Parameter: int projectId, int employeeId
+
+Return type: Boolean
+
+#### 5.AssigntaskInProjecttoEmployee()
+
+Parameter: int taskid, int projectid, int employeeId
+
+Return type: Boolean
+
+#### 6. deleteEmployee()
+
+parameter: userId
+
+return type: boolean
+   
+#### 1. deleteProject()
+         
+parameter: projectId
+         
+return type: boolean
+        
+#### 2. getAllTasks() list all Taks in a project assigned to an employeee
+        
+parameter: empId,projectId
+         
+return type: list of expenes
+
+
+python code:
+```
+import mysql.connector
+from dao.i_project_repository import IProjectRepository
+from util.db_conn_util import DBConnUtil
+
+class ProjectRepositoryImpl(IProjectRepository):
+
+    def __init__(self, config_path):
+        self.conn = DBConnUtil.get_connection(config_path)
+        self.cursor = self.conn.cursor()
+
+    def createEmployee(self, emp):
+        values = (
+            emp.get_name(),
+            emp.get_designation(),
+            emp.get_gender(),  # This should be already 'Male' / 'Female' / 'Other'
+            emp.get_salary(),
+            emp.get_project_id()
+        )
+
+        print(" DEBUG - Values to Insert:", values)
+
+        query = "INSERT INTO Employee (name, designation, gender, salary, project_id) VALUES (%s, %s, %s, %s, %s)"
+
+        try:
+            self.cursor.execute(query, values)
+            self.conn.commit()
+            return True
+        except Exception as e:
+            print(" ERROR:", e)
+            return False
+
+    def createProject(self, pj):
+        query = "INSERT INTO Project (project_name, description, start_date, status) VALUES (%s, %s, %s, %s)"
+        values = (pj.get_name(), pj.get_description(), pj.get_start_date(), pj.get_status())
+        self.cursor.execute(query, values)
+        self.conn.commit()
+        return True
+
+    def createTask(self, task):
+        query = "INSERT INTO Task (task_name, project_id, employee_id, status) VALUES (%s, %s, %s, %s)"
+        values = (task.get_name(), task.get_project_id(), task.get_employee_id(), task.get_status())
+        self.cursor.execute(query, values)
+        self.conn.commit()
+        return True
+
+    def assignProjectToEmployee(self, projectId, employeeId):
+        query = "UPDATE Employee SET project_id = %s WHERE id = %s"
+        self.cursor.execute(query, (projectId, employeeId))
+        self.conn.commit()
+        return True
+
+    def assignTaskInProjectToEmployee(self, taskId, projectId, employeeId):
+        query = "UPDATE Task SET project_id = %s, employee_id = %s WHERE task_id = %s"
+        self.cursor.execute(query, (projectId, employeeId, taskId))
+        self.conn.commit()
+        return True
+
+    def deleteEmployee(self, empId):
+        query = "DELETE FROM Employee WHERE id = %s"
+        self.cursor.execute(query, (empId,))
+        self.conn.commit()
+        return True
+
+    def deleteProject(self, projectId):
+        query = "DELETE FROM Project WHERE id = %s"
+        self.cursor.execute(query, (projectId,))
+        self.conn.commit()
+        return True
+
+    def getAllTasks(self, empId, projectId):
+        query = "SELECT * FROM Task WHERE employee_id = %s AND project_id = %s"
+        self.cursor.execute(query, (empId, projectId))
+        return self.cursor.fetchall()
+
+```
+#### <p align = "center"> explanation </p>
+#### i_project_repository.py – Interface Layer
+
+This module defines the abstract contract for the data access layer (DAO). It contains the method signatures (blueprints) that are implemented in the corresponding repository implementation class.
+
+#### 🔹 Purpose:
+To separate the interface from the implementation and promote loose coupling and modularity in the application.
+
+#### 🔹 Key Responsibilities:
+
+Declare all necessary methods for managing employees, projects, and tasks.
+
+Ensure consistency across all DAO implementations.
+
+Facilitate clean architecture by abstracting business logic from database logic.
+
+#### 🔹 Declared Methods:
+
+1. createEmployee(emp)
+
+2. createProject(pj)
+
+3. createTask(task)
+
+4. assignProjectToEmployee(projectId, employeeId)
+
+5. assignTaskInProjectToEmployee(taskId, projectId, employeeId)
+
+6. deleteEmployee(employeeId)
+
+7. deleteProject(projectId)
+
+8. getAllTasks(empId, projectId)
+
+
+
+####  Implement the above interface in a class called ProjectRepositoryImpl in package dao
+
+   #### created a class called ProjectRepositoryImpl in package dao 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/90d72294-9272-4497-850a-517dae6ed8c8" width="45%" />
+</p>
+
+
+#### code:
+```
+import mysql.connector
+from dao.i_project_repository import IProjectRepository
+from util.db_conn_util import DBConnUtil
+
+class ProjectRepositoryImpl(IProjectRepository):
+
+    def __init__(self, config_path):
+        self.conn = DBConnUtil.get_connection(config_path)
+        self.cursor = self.conn.cursor()
+
+    def createEmployee(self, emp):
+        values = (
+            emp.get_name(),
+            emp.get_designation(),
+            emp.get_gender(),  # This should be already 'Male' / 'Female' / 'Other'
+            emp.get_salary(),
+            emp.get_project_id()
+        )
+
+        print(" DEBUG - Values to Insert:", values)
+
+        query = "INSERT INTO Employee (name, designation, gender, salary, project_id) VALUES (%s, %s, %s, %s, %s)"
+
+        try:
+            self.cursor.execute(query, values)
+            self.conn.commit()
+            return True
+        except Exception as e:
+            print(" ERROR:", e)
+            return False
+
+    def createProject(self, pj):
+        query = "INSERT INTO Project (project_name, description, start_date, status) VALUES (%s, %s, %s, %s)"
+        values = (pj.get_name(), pj.get_description(), pj.get_start_date(), pj.get_status())
+        self.cursor.execute(query, values)
+        self.conn.commit()
+        return True
+
+    def createTask(self, task):
+        query = "INSERT INTO Task (task_name, project_id, employee_id, status) VALUES (%s, %s, %s, %s)"
+        values = (task.get_name(), task.get_project_id(), task.get_employee_id(), task.get_status())
+        self.cursor.execute(query, values)
+        self.conn.commit()
+        return True
+
+    def assignProjectToEmployee(self, projectId, employeeId):
+        query = "UPDATE Employee SET project_id = %s WHERE id = %s"
+        self.cursor.execute(query, (projectId, employeeId))
+        self.conn.commit()
+        return True
+
+    def assignTaskInProjectToEmployee(self, taskId, projectId, employeeId):
+        query = "UPDATE Task SET project_id = %s, employee_id = %s WHERE task_id = %s"
+        self.cursor.execute(query, (projectId, employeeId, taskId))
+        self.conn.commit()
+        return True
+
+    def deleteEmployee(self, empId):
+        query = "DELETE FROM Employee WHERE id = %s"
+        self.cursor.execute(query, (empId,))
+        self.conn.commit()
+        return True
+
+    def deleteProject(self, projectId):
+        query = "DELETE FROM Project WHERE id = %s"
+        self.cursor.execute(query, (projectId,))
+        self.conn.commit()
+        return True
+
+    def getAllTasks(self, empId, projectId):
+        query = "SELECT * FROM Task WHERE employee_id = %s AND project_id = %s"
+        self.cursor.execute(query, (empId, projectId))
+        return self.cursor.fetchall()
+
+```
+#### project_repository_impl.py – DAO Implementation Layer
+
+This module provides the concrete implementation of all methods declared in i_project_repository.py. It is responsible for actual interaction with the MySQL database using SQL queries.
+
+#### 🔹 Purpose:
+To execute CRUD operations and data manipulation by communicating directly with the database.
+
+#### 🔹 Key Responsibilities:
+
+Insert new employees, projects, and tasks into the database.
+
+Assign tasks/projects to employees.
+
+Delete employees or projects.
+
+Fetch task data filtered by employee and project.
+
+Handle exceptions during database transactions.
+
+Maintain connection and cursor management.
+
+#### 🔹 Technologies Used:
+
+mysql-connector-python for MySQL database interaction.
+
+Custom exception handling for better feedback and debugging.
+
+Object-oriented approach with method-driven design.
+
+#### 🔹 Benefits:
+
+Keeps the database logic modular and manageable.
+
+Can easily be extended or swapped with another DB implementation.
+
+Enhances testability and maintainability of the system.
