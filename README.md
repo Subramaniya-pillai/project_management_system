@@ -135,6 +135,13 @@ CREATE TABLE Task (
 
 • The Task table stores details of task and data about which project it comes under and employees assigned with that taks along with status .
 
+### ER Diagram
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ea104d75-c27b-49c6-accf-f07dc7f9b96d" width="55%" />
+</p>
+
+
 ### Create the model/entity classes corresponding to the schema within package entity with variables declared private, constructors(default and parametrized) and getters,setters )
 
 ####  Service Provider Interface/Abstract class:
