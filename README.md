@@ -27,14 +27,12 @@ driven application.
 5. Database Connectivity: Data will be stored in a relational database to ensure persistence.
 
 
-###  <p align="center"> TASK 1 </p>
 
 
-#### Create following tables in SQL Schema with appropriate class and write the unit test case for the Project Management application.
 
 ###  <p align="center">Schema Design</p>
 
-  ####   <p align="center"> Employee </p>
+####   <p align="center"> Employee </p>
 
 
 • id (Primary Key)
