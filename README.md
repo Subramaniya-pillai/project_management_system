@@ -517,3 +517,152 @@ database = project_management
 
 ```
 
+### <p align="center" > Menu description and Output </p>
+
+### <p align="center"> Description </p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/de68b6c4-0b95-4969-a9b0-1c9cda054ed9" width="45%" />
+</p>
+
+### Adding employee
+
+<table>
+  <tr>
+    <th align="center">User Input</th>
+    <th></th>
+    <th align="center">Database View</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/cbd785a7-3b64-4854-922f-ece8c51bdd71" width="300px" />
+    </td>
+    <td align="center" style="border-left: 2px solid gray; width: 1px;"></td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/40027ba8-ed83-42d5-8f5e-968395c5c951" width="300px" />
+    </td>
+  </tr>
+</table>
+
+
+### Adding Project
+
+<table>
+  <tr>
+    <th align="center">User Input</th>
+    <th></th>
+    <th align="center">Database View</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/137ebbdb-552b-4788-92a2-1135655370f9" width="300px" />
+    </td>
+    <td align="center" style="border-left: 2px solid gray; width: 1px;"></td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/1e664ac0-9a29-41de-939b-6adb88f50681" width="300px" />
+    </td>
+  </tr>
+</table>
+
+### Adding Task
+<table>
+  <tr>
+    <th align="center">User Input</th>
+    <th></th>
+    <th align="center">Database View</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/9bcb5c60-cf19-46d7-8153-321aedffb9b0" width="300px" />
+    </td>
+    <td align="center" style="border-left: 2px solid gray; width: 1px;"></td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/f8307ae1-a352-4ed7-94ae-28bddc719b9c" width="300px" />
+    </td>
+  </tr>
+</table>
+
+### Assign project to employee
+<table>
+  <tr>
+    <th align="center">User Input</th>
+    <th></th>
+    <th align="center">Database View</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/96a04b89-c24f-46a7-b846-c32de5acb61a" width="300px" />
+    </td>
+    <td align="center" style="border-left: 2px solid gray; width: 1px;"></td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/2f7633aa-eb73-4982-b7e1-7fc87354ffd1" width="300px" />
+    </td>
+  </tr>
+</table>
+
+### Assign task within a project to employee
+
+<table>
+  <tr>
+    <th align="center">User Input</th>
+    <th></th>
+    <th align="center">Database View</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/bebef7bb-0975-4335-b322-a5db405614fd" width="300px" />
+    </td>
+    <td align="center" style="border-left: 2px solid gray; width: 1px;"></td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/4c417f8a-4116-4c35-a0a9-77aad19d35b5" width="300px" />
+    </td>
+  </tr>
+</table>
+
+
+### Delete Employee
+
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4ac65040-b0bc-47e0-a61a-8dcadcd7690e" width="45%" />
+</p>
+
+
+
+
+<table>
+  <tr>
+    <th align="center">Before</th>
+    <th></th>
+    <th align="center">After</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/e205284c-653b-4a49-9f33-01d7eb33c9df" width="300px" />
+    </td>
+    <td align="center" style="border-left: 2px solid gray; width: 1px;"></td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/0f3dfe00-afff-45e6-b585-d4c2e530c698" width="300px" />
+    </td>
+  </tr>
+</table>
+
+### Delete task
+![image](https://github.com/user-attachments/assets/df492b3a-d6a2-4782-a286-627f9bc21daf)
+
+<table>
+  <tr>
+    <th align="center">Before</th>
+    <th></th>
+    <th align="center">After</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/da55a6ee-3b9a-4221-a3a3-4eb3a11d30f1" width="300px" />
+    </td>
+    <td align="center" style="border-left: 2px solid gray; width: 1px;"></td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/900510a5-bdd5-4796-ad13-5dd673b18aba" width="300px" />
+    </td>
+  </tr>
+</table>
