@@ -437,10 +437,7 @@ Can easily be extended or swapped with another DB implementation.
 
 Enhances testability and maintainability of the system.
 
-###  <p align="center"> TASK 8 </p>
-
-
-### 🔌 Database Connection Setup
+###  <p align="center"> Database Connection Setup </p>
 
 The application connects to a MySQL database using utility classes inside the `util/` package.
 
@@ -491,11 +488,11 @@ class DBPropertyUtil:
         config = configparser.ConfigParser()
         full_path = os.path.abspath(path)
 
-        print("Reading from:", full_path)  # 🔍 Debug print
+        print("Reading from:", full_path)  
         config.read(full_path)
 
         if 'database' not in config:
-            print("Sections found:", config.sections())  # 🔍 Debug print
+            print("Sections found:", config.sections())  
             raise Exception("Missing [database] section in properties file.")
 
         return {
